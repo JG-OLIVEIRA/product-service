@@ -1,0 +1,67 @@
+openapi: 3.0.3
+info:
+  title: Product Service
+  version: 1.0.0
+servers:
+- url: http://localhost:8080
+paths:
+  /api/product:
+    get:
+      operationId: getAllProducts
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/ProductResponse'
+                type: array
+          description: OK
+      summary: GET api/product
+      x-accepts: '*/*'
+    post:
+      operationId: createProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequest'
+        required: true
+      responses:
+        "201":
+          description: Created
+      summary: POST api/product
+      x-contentType: application/json
+      x-accepts: application/json
+components:
+  schemas:
+    ProductResponse:
+      example:
+        id: 64122c90faa1422135a8a448
+        name: iphone_13
+        description: Um smartphone da Apple super caro que nem vale tanto a pena assim
+        price: 4700
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+      type: object
+    ProductRequest:
+      example:
+        name: iphone_13
+        description: Um smartphone da Apple super caro que nem vale tanto a pena assim
+        price: 4700
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+      type: object
+
